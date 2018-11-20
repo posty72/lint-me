@@ -1,0 +1,37 @@
+{
+  "name": "lint-me",
+  "version": "1.0.0",
+  "description": "Standard linting configs for Eslint, TSLint and Stylelint",
+  "main": "index.js",
+  "bin": {
+    "lint-me": "dist/bin/cli.js"
+  },
+  "dependencies": {
+    "@types/eslint": "^4.16.4",
+    "@types/glob": "^7.1.1",
+    "@types/meow": "^5.0.0",
+    "@types/node": "^10.12.9",
+    "@types/stylelint": "^9.4.1",
+    "glob": "^7.1.3",
+    "meow": "^5.0.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.9.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1",
+    "stylelint": "^9.8.0",
+    "stylelint-order": "^1.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build"
+  },
+  "author": "Josh Post",
+  "license": "MIT"
+}
