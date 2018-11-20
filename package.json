@@ -1,6 +1,6 @@
 {
   "name": "lint-me",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Standard linting configs for Eslint, TSLint and Stylelint",
   "main": "index.js",
   "bin": {
