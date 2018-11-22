@@ -12,6 +12,8 @@ export function lintJSFiles(fileGlob: string, cli: meow.Result) {
 
     logger.time(LINT_TIMER)
     glob(fileGlob, (error: any, files: Array<string>) => {
+        files = files.filter((file) => !file.includes('node_modules'))
+
         if (error) {
             logger.error(error)
             process.exit(1)

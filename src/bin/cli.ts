@@ -8,10 +8,10 @@ import { Logger } from '../utility/logger';
 
 const cli = meow(` 
 	Usage  
-	  $ lint-me <files> <options> 
+	  $ lint-me <options> 
 
-    Files   <file-glob>     Files you would like to lint
     Options
+        --path, p       File glob of the files to lint
         --fix           Autofix linting errors where possible
         --config, -c    Path to linting config file
         --type, -t      The type of linter you would like to use. Options are js, ts and style
@@ -20,11 +20,15 @@ const cli = meow(`
     Options relate to the type of file you're trying to lint. See the linters docs for complete options.
 
 	Examples 
-	  $ lint-me ./**/*.ts --fix -t ts
-	  $ lint-me ./src/**/*.js --config ./config/.eslintrc --type js
-	  $ lint-me ./**/*.scss
+	  $ lint-me './**/*.ts' --fix -t ts
+	  $ lint-me './src/**/*.js' --config ./config/.eslintrc --type js
+	  $ lint-me './**/*.scss'
 `, {
         flags: {
+            path: {
+                type: 'string',
+                alias: 'p'
+            },
             type: {
                 type: 'string',
             },
@@ -43,23 +47,27 @@ const cli = meow(`
     }
 )
 
-const fileGlob = cli.input[0]
+const filePaths = cli.input[0]
 const type: string = cli.flags.type || cli.flags.t
-
 const logger = new Logger(cli.flags.quiet || cli.flags.q)
+
+if (typeof filePaths !== 'string') {
+    logger.warning('Please pass a string for the file glob')
+    process.exit(1)
+}
 
 switch (type) {
     case 'ts':
         logger.info('Starting linting of Typescipt files')
-        lintTypeScriptFiles(fileGlob, cli)
+        lintTypeScriptFiles(filePaths, cli)
         break
     case 'js':
         logger.info('Starting linting  of Javascipt files')
-        lintJSFiles(fileGlob, cli)
+        lintJSFiles(filePaths, cli)
         break
     case 'style':
         logger.info('Starting linting  of style files ')
-        lintStyleFiles(fileGlob, cli)
+        lintStyleFiles(filePaths, cli)
         break
     default:
         logger.log('lint-me requires the "type" flag to be set to either ts, js or style')

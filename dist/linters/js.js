@@ -10,6 +10,7 @@ function lintJSFiles(fileGlob, cli) {
     const logger = new logger_1.Logger(cli.flags.quiet || cli.flags.q);
     logger.time(LINT_TIMER);
     glob(fileGlob, (error, files) => {
+        files = files.filter((file) => !file.includes('node_modules'));
         if (error) {
             logger.error(error);
             process.exit(1);
